@@ -1,0 +1,43 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Hall {
+  id       String    @id
+  name     String
+  capacity Int
+
+  sessions Session[]
+}
+
+model Session {
+  id              String    @id @default(uuid())
+  movieTitle      String
+  startsAt        DateTime
+  durationMinutes Int
+
+  hallId String
+  hall   Hall     @relation(fields: [hallId], references: [id], onDelete: Restrict)
+
+  bookings Booking[]
+
+  @@index([hallId, startsAt])
+}
+
+model Booking {
+  id       String @id @default(uuid())
+  sessionId String
+  session   Session @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  fullName String
+  tickets  Int
+
+  @@unique([sessionId, fullName])
+  @@index([sessionId])
+}
+

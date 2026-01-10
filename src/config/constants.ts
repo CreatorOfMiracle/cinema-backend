@@ -1,0 +1,3 @@
+export const TECHNICAL_PAUSE_MINUTES = 15;
+export const MAX_TICKETS_PER_PERSON = 6;
+
