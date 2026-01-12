@@ -9,35 +9,38 @@ datasource db {
 
 model Hall {
   id       String    @id
-  name     String
-  capacity Int
+  name     String    @map("name")
+  capacity Int       @map("capacity")
 
   sessions Session[]
+
+  @@map("hall")
 }
 
 model Session {
   id              String    @id @default(uuid())
-  movieTitle      String
-  startsAt        DateTime
-  durationMinutes Int
+  movieTitle      String    @map("movie_title")
+  startsAt        DateTime  @map("starts_at")
+  durationMinutes Int       @map("duration_minutes")
 
-  hallId String
+  hallId String   @map("hall_id")
   hall   Hall     @relation(fields: [hallId], references: [id], onDelete: Restrict)
 
   bookings Booking[]
 
-  @@index([hallId, startsAt])
+  @@index([hallId, startsAt], map: "session_hall_id_starts_at_idx")
+  @@map("session")
 }
 
 model Booking {
   id       String @id @default(uuid())
-  sessionId String
+  sessionId String @map("session_id")
   session   Session @relation(fields: [sessionId], references: [id], onDelete: Cascade)
 
-  fullName String
-  tickets  Int
+  fullName String @map("full_name")
+  tickets  Int    @map("tickets")
 
-  @@unique([sessionId, fullName])
-  @@index([sessionId])
+  @@unique([sessionId, fullName], map: "booking_session_id_full_name_key")
+  @@index([sessionId], map: "booking_session_id_idx")
+  @@map("booking")
 }
-

@@ -10,10 +10,8 @@
     "build": "nest build",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
+    "prisma:push": "prisma db push",
     "prisma:seed": "prisma db seed",
-    "db:up": "docker compose up -d",
-    "db:init": "docker compose exec -T db psql -U postgres -d cinema -f scripts/db-init.sql",
-    "db:down": "docker compose down -v",
     "server:stop": "test -f .server.pid && kill $(cat .server.pid) && rm -f .server.pid || true"
   },
   "dependencies": {
