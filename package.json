@@ -9,7 +9,6 @@
     "start:dev": "nest start --watch",
     "build": "nest build",
     "db:up": "docker compose up -d",
-    "db:init": "docker compose exec -T db psql -U postgres -d cinema -f scripts/db-init.sql",
     "db:down": "docker compose down -v",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
