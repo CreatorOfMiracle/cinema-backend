@@ -416,3 +416,11 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+# Local backend run artifacts
+.server.log
+.server.pid
+
+*.md
+
+dist
